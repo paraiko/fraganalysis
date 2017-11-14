@@ -3,22 +3,35 @@
 import glob, fileinput
 
 
-fsave = open('output.txt', 'w')
-fsave.write('filename,#bins,#activebins\n')
+fSave = open('output.txt', 'w')
+fSave.write('filename,#bins,#activebins,#activebouts\n')
 binctr = 0
-activectr = 0
+
 #fname = 
-curfile = 'none'
-prevfile = 'none'
+curFile = 'none'
+prevFile = 'none'
 
 for filename in glob.glob('*.pir'):
-	activectr = 0
+	actBinCtr = 0    # counter for the nr active bins in a file
+	#totBoutCtr = 0   # counter for the nr activity bouts in a file
+	actBoutCtr = 0   # counter for the total nr of bouts in a file
+	
+	active = True
 	for line in fileinput.input(filename):
 		#print(fileinput.filename() + ' ' + str(fileinput.lineno()))
-		binval = int(line)
-		if binval > 0:
-			activectr+=1
+		binVal = int(line)
+				
+		# 	
+		if binVal > 0:
+			actBinCtr += 1
+			if active != True:
+				active = True
+				actBoutCtr += 1
+				print ('active')
+		else:
+			active = False
+			print ('inactive')
 		
 	#fragmentation = activectr/fileinput.lineno()
-	fsave.write(fileinput.filename() + ',' + str(fileinput.lineno()) + ',' +  str(activectr) + '\n')
-fsave.close()
+	fSave.write(fileinput.filename() + ',' + str(fileinput.lineno()) + ',' + str(actBinCtr) + ',' + str(actBoutCtr) + '\n')
+fSave.close()
