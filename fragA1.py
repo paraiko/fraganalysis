@@ -27,10 +27,10 @@ for filename in glob.glob('*.pir'):
 			if active != True:
 				active = True
 				actBoutCtr += 1
-				print ('active')
+				#print ('active')
 		else:
 			active = False
-			print ('inactive')
+			#print ('inactive')
 		
 	#fragmentation = activectr/fileinput.lineno()
 	fSave.write(fileinput.filename() + ',' + str(fileinput.lineno()) + ',' + str(actBinCtr) + ',' + str(actBoutCtr) + '\n')
