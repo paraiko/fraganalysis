@@ -18,6 +18,7 @@ while [ $ctr -le 54 ]
 do
    name=$(printf "%02d" $fname)
    csvtool col $ctr pir_$1.csv > $1_$name.pir
+   awk 'sub("$", "\r")' $1_$name.pir > $1_$name.pir
    ((ctr++))
    ((fname++))
 done
